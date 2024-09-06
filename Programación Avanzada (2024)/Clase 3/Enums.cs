@@ -30,14 +30,14 @@ public class Enums : MonoBehaviour
         }
 
 
-        // switch
+        // Switch
         switch (nombre)
         {
             case Nombre.Rodrigo:
 
                 Debug.Log("Soy el profe");
                 break;
-        
+
             case Nombre.Pikachu:
             case Nombre.Gonzalo:
             case Nombre.Marcelo:
@@ -46,7 +46,7 @@ public class Enums : MonoBehaviour
 
             default:
                 Debug.Log("No soy ninguno jaja xd");
-                
+
         }
 
 
@@ -61,9 +61,17 @@ public class Enums : MonoBehaviour
         Debug.Log(texto);
 
 
+        // Conversion
+        nombre = Nombre.Rodrigo;
+        nombre = (Nombre)0;
 
 
+        // Total
+        string[] nombresStrings = System.Enum.GetNames( typeof( Nombre ) );
+
+        foreach ( string item in nombresStrings )
+        {
+            Debug.Log(item);
+        }
     }
-
-
 }
