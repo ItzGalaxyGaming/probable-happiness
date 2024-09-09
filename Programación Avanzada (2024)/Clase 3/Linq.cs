@@ -5,9 +5,9 @@ using UnityEngine;
 // Dentro de la libreria linq, se pueden encontrar muchas funciones que nos sirven para muchas situaciones llenas de lambdas dentro de las listas o arreglos.
 using System.Linq;
 
-public class Lambda : MonoBehaviour
+public class Linq : MonoBehaviour
 {
-    List<Vehicle> vehicles;
+    public List<Vehicle> vehicles;
 
     public void Update()
     {
