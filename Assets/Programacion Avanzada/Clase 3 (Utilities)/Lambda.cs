@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Clases.PA2024.Lambda
+namespace Clases.PA2024.Utilities.Lambda
 {
     // Lambda nos permite crear funciones anonimas que no requieren de un nombre y nos permite hacer cosas de esta manera.
     public class Lambda : MonoBehaviour

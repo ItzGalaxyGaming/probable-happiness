@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Clases.PA2024.Dictionaries
+namespace Clases.PA2024.Utilities.Dictionaries
 {
     public class Diccionarios : MonoBehaviour
     {

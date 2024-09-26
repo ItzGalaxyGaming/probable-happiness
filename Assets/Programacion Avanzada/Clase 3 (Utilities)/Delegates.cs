@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Clases.PA2024.Delegates
+namespace Clases.PA2024.Utilities.Delegates
 {
     // Esta seria una clase la cual utiliza un evento de C# comun y corriente
     // el problema aqui es que:

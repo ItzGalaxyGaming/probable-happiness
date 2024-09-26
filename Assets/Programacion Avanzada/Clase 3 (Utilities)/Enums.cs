@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Clases.PA2024.Enums
+namespace Clases.PA2024.Utilities.Enums
 {
     // Los enums son un tipo que nos permite guardar identificadores para posteriormente compararlos. 
     public class Enums : MonoBehaviour

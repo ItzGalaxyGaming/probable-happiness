@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Clases.PA2024.IEnumerables
+namespace Clases.PA2024.Utilities.IEnumerables
 {
     // Los IEnumerable son una interface que nos permite acceder a los valores de un arreglo o de una lista sin la necesidad de especificar cual es.
     public class IEnumerables : MonoBehaviour

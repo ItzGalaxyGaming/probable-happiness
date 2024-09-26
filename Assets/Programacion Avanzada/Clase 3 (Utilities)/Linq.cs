@@ -5,7 +5,7 @@ using UnityEngine;
 // Dentro de la libreria linq, se pueden encontrar muchas funciones que nos sirven para muchas situaciones llenas de lambdas dentro de las listas o arreglos.
 using System.Linq;
 
-namespace Clases.PA2024.Linq
+namespace Clases.PA2024.Utilities.Linq
 {
     public class Linq : MonoBehaviour
     {
