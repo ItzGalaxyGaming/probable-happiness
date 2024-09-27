@@ -4,66 +4,109 @@ using UnityEngine;
 
 namespace Clases.PA2024.Management
 {
+    // Este es un script generico para mover un jugador, pero está suscrito al 
     public class PlayerController : MonoBehaviour
     {
+        // Events
+        public static event HealthDelegate OnHealthChange;
+
         // Variables
         [Header("Settings")]
         [SerializeField] private float m_speed = 4f;
+        [SerializeField] private int m_maxHealth = 4;
 
         [Header("References")]
         [SerializeField] private CharacterController m_characterController;
 
-        // Methods
-        /// <summary>
-        /// This function is called when the object becomes enabled and active.
-        /// </summary>
+        private int m_currentHealth = 4;
+
+        // Properties
+        public int CurrentHealth => m_currentHealth;
+        public int MaxHealth => m_maxHealth;
+
+        private void Start()
+        {
+            m_currentHealth = MaxHealth;
+            OnHealthChange?.Invoke(m_currentHealth, m_maxHealth);
+        }
+
+        // Si quiero detectar el cambio de estado del GameManager, aca puedo suscribirme.
         private void OnEnable()
         {
             GameManager.OnStateChange += OnStateChange;
         }
 
-        /// <summary>
-        /// This function is called when the behaviour becomes disabled or inactive.
-        /// </summary>
+        // Y, para evitar que si el objeto se destruye, el GameManager erroje error, 
+        // es preferible que lo desuscribamos siempre.
         private void OnDisable()
         {
             GameManager.OnStateChange -= OnStateChange;
         }
 
-        /// <summary>
-        /// Update is called every frame, if the MonoBehaviour is enabled.
-        /// </summary>
-        private void Update()
-        {
-            if (GameManager.CurrentState != GameState.Gameplay) return;
-
-            Vector3 input = Vector3.zero;
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.z = Input.GetAxisRaw("Vertical");
-
-            m_characterController.Move(input * m_speed * Time.deltaTime);
-
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                OnDeath();
-            }
-        }
-
-        public void OnDeath()
-        {
-            GameManager.SwitchState(GameState.GameOver);
-        }
-
+        // Esta seria la función que se ejecutará cuando se reciba la señal de que el 
+        // estado del GameManager cambio, enviandonos state para que podamos comprobar.
         private void OnStateChange(GameState state)
         {
+            // Si el nuevo estado es GameOver, arrojaremos un Debug que lo dirá.
             if (state == GameState.GameOver)
             {
                 Debug.Log("Game over");
             }
+
+            // En cambio, si es victoria, arrojaremos otro Debug.
             else if (state == GameState.Victory)
             {
                 Debug.Log("Victory");
             }
         }
+
+        // Aca haré el codigo generico de mover al personaje, pero tendre una tecla de Debug para 
+        // hacerme daño a mi mismo.
+        private void Update()
+        {
+            // Pero esto ocurrira siempre y cuando el estado actual del GameManager sea
+            // Gameplay.
+            if (GameManager.CurrentState == GameState.Gameplay)
+            {
+                Move();
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    GetDamage();
+                }
+            }
+        }
+
+        // Codigo generico de movimiento de personaje 👍
+        private void Move()
+        {
+            Vector3 input = Vector3.zero;
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.z = Input.GetAxisRaw("Vertical");
+
+            m_characterController.Move(input * m_speed * Time.deltaTime);
+        }
+
+        // Codigo generico para hacerme daño a mi mismo 😔
+        public void GetDamage()
+        {
+            m_currentHealth--;
+            OnHealthChange?.Invoke(m_currentHealth, m_maxHealth);
+
+            if (m_currentHealth == 0)
+            {
+                OnDeath();
+            }
+        }
+
+        // En esta funcion, cuando mi vida sea igual a 0, destruire el objeto,
+        // pero, tambien cambiaré el estado del GameManager a GameOver. 
+        public void OnDeath()
+        {
+            GameManager.SwitchState(GameState.GameOver);
+            Destroy(gameObject);
+        }
+
+        // Delegates
+        public delegate void HealthDelegate(int health, int maxHealth);
     }
 }

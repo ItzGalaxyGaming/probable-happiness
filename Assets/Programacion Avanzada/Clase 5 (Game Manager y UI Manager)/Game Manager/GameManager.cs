@@ -39,13 +39,15 @@ namespace Clases.PA2024.Management
 
         // Esta es una propiedad que si o si se debe implementar desde el Singleton,
         // no es relevante para esta clase.
+        // Aun asi, no recomiendo utilizar DontDestroyOnLoad en el GameManager.
+        // Y tambien recomiendo no usarlo en general a no ser que sea casos especificos,
+        // por ejemplo, el fade entre escenas de un SceneManager.
         protected override bool Persistent => false;
 
-        // Methods
-        /// <summary>
-        /// Start is called on the frame when a script is enabled just before
-        /// any of the Update methods is called the first time.
-        /// </summary>
+        // Aca establecere que el estado inicial sera el indicado desde la variable.
+        // Recomiendo que sea en el Start, ya que por el orden de ejecucion de scripts,
+        // si esto está en el Awake, hará que se ejecute antes de que los objetos ejecuten
+        // OnEnable, lo que hará que no alcancen a suscribirse al evento OnStateSwitch.
         private void Start()
         {
             SwitchState(m_initialState);
@@ -63,7 +65,7 @@ namespace Clases.PA2024.Management
             // dos veces
             if (state == CurrentState) return;
 
-            // Aqui actualizaremos la propiedad y ejecutaremos el evento 
+            // Aqui actualizaremos la propiedad y ejecutaremos el evento.
             CurrentState = state;
             OnStateChange?.Invoke(state);
         }
