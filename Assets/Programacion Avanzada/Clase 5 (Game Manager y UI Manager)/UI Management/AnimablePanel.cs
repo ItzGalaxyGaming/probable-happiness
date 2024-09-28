@@ -10,7 +10,7 @@ namespace Clases.PA2024.Management
     {
         // Este sera el identificador con que el detectaremos si el objeto se tiene que abrir o cerrar.
         [Header("Animation Settings")]
-        [SerializeField] private float m_animationTime;
+        [SerializeField] private float m_animationTime = 0.25f;
 
         [Header("Opacity Animation")]
         [SerializeField] private CanvasGroup m_canvasGroup;
@@ -19,6 +19,8 @@ namespace Clases.PA2024.Management
         [SerializeField] private RectTransform m_rectTransform;
         [SerializeField] private Vector2 m_enabledPosition;
         [SerializeField] private Vector2 m_disabledPosition = Vector2.down * 32;
+
+        private Coroutine m_currentAnimation;
 
         // Esta funcion se ejecuta cuando el componente se crea en el inspector.
         private void Reset()
@@ -32,14 +34,19 @@ namespace Clases.PA2024.Management
         public override void Open()
         {
             base.Open();
-            StartCoroutine(InOut(true));
+
+            if (m_currentAnimation != null) StopCoroutine(m_currentAnimation);
+            m_currentAnimation = StartCoroutine(InOut(true));
         }
 
         // En cambio aca no llamaré a base.Close, ya que eso desactivaria el objeto instantaneamente
         // cosa que no quiero que ocurra.
         public override void Close()
         {
-            StartCoroutine(InOut(false));
+            if (!gameObject.activeSelf) return;
+
+            if (m_currentAnimation != null) StopCoroutine(m_currentAnimation);
+            m_currentAnimation = StartCoroutine(InOut(false));
         }
 
         // Acá haré un override de la función Set para establecer los valores por defecto del 

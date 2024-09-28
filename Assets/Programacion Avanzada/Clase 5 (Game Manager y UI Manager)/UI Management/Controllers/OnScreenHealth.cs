@@ -29,6 +29,7 @@ namespace Clases.PA2024.Management
             PlayerController.OnHealthChange -= OnHealthChange;
         }
 
+        // Esta funcion se ejecuta cuando cambia la vida del jugador.
         private void OnHealthChange(int health, int maxHealth)
         {
             m_healthFill.fillAmount = (float)health / maxHealth;

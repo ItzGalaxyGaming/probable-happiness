@@ -32,12 +32,15 @@ namespace Clases.PA2024.Management
             SwitchPanel(m_initialIdentifier, true);
         }
 
-        // La funcion SwitchPanel activará y desactivará los paneles.
-        // Pero, al tener un booleano llamado instant con un valor por defecto en falso,
-        // podremos abrir los paneles instantaneamente, sin requerir pasar por una animacion.
-        // Pero podremos sobreescribirlo usando SwitchPanel("Nombre", true);
+        // La funcion SwitchPanel activará y desactivará los paneles con animaciones
+        // Pero, al tener un booleano llamado instant, podremos abrir los paneles instantaneamente, 
+        // sin requerir pasar por una animacion.
+        // Podremos usar SwitchPanel("Nombre", true);
         // O, si queremos utilizar su comportamiento por defecto, SwitchPanel("Nombre");
-        public void SwitchPanel(string identifier, bool instant = false)
+        // Ya que creamos una sobrecarga solo con un identificador, la cual ejecutara la funcion con el booleano.
+        public void SwitchPanel(string identifier) => SwitchPanel(identifier, false);
+
+        public void SwitchPanel(string identifier, bool instant)
         {
             CurrentIdentifier = identifier;
 
