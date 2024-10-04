@@ -6,9 +6,8 @@ namespace Clases.PA2024.Generics
 {
     public class SOItem : ScriptableObject
     {
-        // Variables
-
         // Properties
-
+        // Esto es solo una demostración, pero ID nos devolverá el nombre del asset.
+        public string ID => name;
     }
 }

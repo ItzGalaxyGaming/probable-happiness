@@ -7,6 +7,7 @@ namespace Clases.PA2024.Generics
     public class BreakableBehaviour : MonoBehaviour, IDamageable
     {
         // Variables
+        [SerializeField] private Drop m_drop;
 
         // Methods
         /// <summary>
@@ -14,6 +15,7 @@ namespace Clases.PA2024.Generics
         /// </summary>
         public void GetDamage()
         {
+            m_drop.Create();
             Destroy(gameObject);
         }
     }
